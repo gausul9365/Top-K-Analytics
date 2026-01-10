@@ -4,6 +4,8 @@ import com.finding.top_k.dto.ViewRequest;
 import com.finding.top_k.entity.ViewEventEntity;
 import com.finding.top_k.repository.ViewEventRepository;
 import org.springframework.stereotype.Service;
+import com.finding.top_k.dto.TopKResponse;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
@@ -23,5 +25,9 @@ public class AnalyticsService {
         entity.setViewedAt(LocalDateTime.now());
 
         viewEventRepository.save(entity);
+    }
+
+    public List<TopKResponse> getItemViewCounts() {
+        return viewEventRepository.fetchItemViewCounts();
     }
 }
