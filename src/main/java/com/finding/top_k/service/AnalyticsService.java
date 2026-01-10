@@ -6,6 +6,7 @@ import com.finding.top_k.repository.ViewEventRepository;
 import org.springframework.stereotype.Service;
 import com.finding.top_k.dto.TopKResponse;
 import java.util.List;
+import com.finding.top_k.util.TopKCalculator;
 
 import java.time.LocalDateTime;
 
@@ -30,4 +31,14 @@ public class AnalyticsService {
     public List<TopKResponse> getItemViewCounts() {
         return viewEventRepository.fetchItemViewCounts();
     }
+
+
+    public List<TopKResponse> getTopK(int k) {
+
+        List<TopKResponse> aggregated =
+                viewEventRepository.fetchItemViewCounts();
+
+        return TopKCalculator.findTopK(aggregated, k);
+    }
+
 }

@@ -28,4 +28,12 @@ public class AnalyticsController {
     public List<TopKResponse> getCounts() {
         return analyticsService.getItemViewCounts();
     }
+
+    @GetMapping("/top")
+    public List<TopKResponse> getTopK(
+            @RequestParam int k
+    ) {
+        return analyticsService.getTopK(k);
+    }
+
 }
