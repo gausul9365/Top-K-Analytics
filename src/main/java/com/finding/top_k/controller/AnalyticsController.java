@@ -1,11 +1,11 @@
 package com.finding.top_k.controller;
 
 import com.finding.top_k.dto.ViewRequest;
+import com.finding.top_k.dto.TopKResponse;
 import com.finding.top_k.service.AnalyticsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.finding.top_k.dto.TopKResponse;
 import java.util.List;
 
 @RestController
@@ -29,11 +29,15 @@ public class AnalyticsController {
         return analyticsService.getItemViewCounts();
     }
 
+
     @GetMapping("/top")
     public List<TopKResponse> getTopK(
-            @RequestParam int k
+            @RequestParam int k,
+            @RequestParam(required = false) Integer minutes
     ) {
-        return analyticsService.getTopK(k);
+        if (minutes == null) {
+            return analyticsService.getTopK(k);
+        }
+        return analyticsService.getTopK(k, minutes);
     }
-
 }

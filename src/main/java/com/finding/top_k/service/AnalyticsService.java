@@ -41,4 +41,15 @@ public class AnalyticsService {
         return TopKCalculator.findTopK(aggregated, k);
     }
 
+    public List<TopKResponse> getTopK(int k, int minutes) {
+
+        LocalDateTime fromTime =
+                LocalDateTime.now().minusMinutes(minutes);
+
+        List<TopKResponse> aggregated =
+                viewEventRepository.fetchItemViewCountsFromTime(fromTime);
+
+        return TopKCalculator.findTopK(aggregated, k);
+    }
+
 }
